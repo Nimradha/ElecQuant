@@ -125,10 +125,10 @@ export function FinalCtaSection({ currency = "AUD" }: FinalCtaSectionProps) {
             © 2026 ElecQuant. Electrical take-offs for Australia & New Zealand.
           </p>
           <a
-            href="mailto:quotes@elecquant.com"
-            className="text-slate-400 hover:text-white transition-colors"
+            href="mailto:info@elec-quant.com"
+            className="text-slate-400 hover:text-white transition-colors underline underline-offset-4"
           >
-            [email]
+            info@elec-quant.com
           </a>
         </div>
       </footer>
