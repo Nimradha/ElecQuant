@@ -25,7 +25,16 @@ interface FinalCtaSectionProps {
 
 export function FinalCtaSection({ currency = "AUD" }: FinalCtaSectionProps) {
   const [isFormOpen, setIsFormOpen] = useState(false);
+  const [copied, setCopied] = useState(false);
   const sectionRef = useRef<HTMLElement>(null);
+
+  const handleEmailClick = () => {
+    if (navigator?.clipboard?.writeText) {
+      navigator.clipboard.writeText("info@elec-quant.com").catch(() => {});
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2500);
+    }
+  };
 
   const handleOpenForm = () => {
     setIsFormOpen(true);
@@ -43,9 +52,8 @@ export function FinalCtaSection({ currency = "AUD" }: FinalCtaSectionProps) {
     <section ref={sectionRef} className="relative overflow-hidden">
       {/* CTA Banner with image2.jpg (Sydney Harbour Bridge) */}
       <div
-        className={`relative ${
-          isFormOpen ? "py-10 sm:py-14 lg:py-16" : "py-20 sm:py-28 lg:py-32"
-        } flex flex-col items-center justify-center text-center overflow-hidden bg-[#072444] transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)]`}
+        className={`relative ${isFormOpen ? "py-10 sm:py-14 lg:py-16" : "py-20 sm:py-28 lg:py-32"
+          } flex flex-col items-center justify-center text-center overflow-hidden bg-[#072444] transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)]`}
       >
         {/* Background Image: image2.jpg */}
         <div className="absolute inset-0 z-0">
@@ -64,11 +72,10 @@ export function FinalCtaSection({ currency = "AUD" }: FinalCtaSectionProps) {
         {/* Content */}
         <ScrollReveal className="relative z-10 max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col items-center w-full">
           <h2
-            className={`${bodyFont.className} ${
-              isFormOpen
+            className={`${bodyFont.className} ${isFormOpen
                 ? "text-2xl sm:text-3xl lg:text-4xl mb-4 sm:mb-5"
                 : "text-3xl sm:text-4xl lg:text-5xl mb-3 sm:mb-4"
-            } font-semibold text-white tracking-tight leading-tight transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]`}
+              } font-semibold text-white tracking-tight leading-tight transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)]`}
             style={{ fontFamily: bodyFont.style.fontFamily }}
           >
             Tender due soon?
@@ -78,11 +85,10 @@ export function FinalCtaSection({ currency = "AUD" }: FinalCtaSectionProps) {
           <div className="w-full flex flex-col items-center">
             {/* Teaser state: smoothly fades & contracts when open */}
             <div
-              className={`w-full flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                isFormOpen
+              className={`w-full flex flex-col items-center transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] ${isFormOpen
                   ? "opacity-0 max-h-0 scale-95 -translate-y-2 pointer-events-none overflow-hidden"
                   : "opacity-100 max-h-48 scale-100 translate-y-0"
-              }`}
+                }`}
             >
               <p
                 className={`${bodyFont.className} text-sm sm:text-base lg:text-lg text-slate-200 font-normal mb-7 sm:mb-8 max-w-xl leading-relaxed`}
@@ -103,11 +109,10 @@ export function FinalCtaSection({ currency = "AUD" }: FinalCtaSectionProps) {
 
             {/* Inline Quote Form Card: smoothly unfolds and expands */}
             <div
-              className={`w-full flex justify-center text-left transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
-                isFormOpen
+              className={`w-full flex justify-center text-left transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${isFormOpen
                   ? "opacity-100 max-h-[900px] scale-100 translate-y-0"
                   : "opacity-0 max-h-0 scale-95 translate-y-4 pointer-events-none overflow-hidden"
-              }`}
+                }`}
             >
               <QuoteFormCard
                 onClose={handleCloseForm}
@@ -124,12 +129,20 @@ export function FinalCtaSection({ currency = "AUD" }: FinalCtaSectionProps) {
           <p className="text-center sm:text-left">
             © 2026 ElecQuant. Electrical take-offs for Australia & New Zealand.
           </p>
-          <a
-            href="mailto:info@elec-quant.com"
-            className="text-slate-400 hover:text-white transition-colors underline underline-offset-4"
-          >
-            info@elec-quant.com
-          </a>
+          <div className="relative inline-flex items-center">
+            <a
+              href="mailto:info@elec-quant.com"
+              onClick={handleEmailClick}
+              className="text-slate-400 hover:text-white transition-colors cursor-pointer"
+            >
+              info@elec-quant.com
+            </a>
+            {copied && (
+              <span className="absolute -top-7 right-0 text-[11px] px-2 py-0.5 rounded bg-emerald-500 text-white font-medium shadow-md">
+                Copied to clipboard!
+              </span>
+            )}
+          </div>
         </div>
       </footer>
     </section>
