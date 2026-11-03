@@ -124,8 +124,11 @@ export async function POST(request: Request) {
           </div>
         `;
 
+        const fromEmail =
+          process.env.RESEND_FROM_EMAIL || "ElecQuant Quotes <quotes@elec-quant.com>";
+
         const sendResult = await resend.emails.send({
-          from: "ElecQuant Quotes <onboarding@resend.dev>",
+          from: fromEmail,
           to: [destinationEmail],
           replyTo: email,
           subject: `New Take-off Quote: ${projectType} (${country}) - ${name}`,
