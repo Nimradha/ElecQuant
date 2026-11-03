@@ -124,7 +124,7 @@ export async function POST(request: Request) {
           </div>
         `;
 
-        await resend.emails.send({
+        const sendResult = await resend.emails.send({
           from: "ElecQuant Quotes <onboarding@resend.dev>",
           to: [destinationEmail],
           replyTo: email,
@@ -133,7 +133,23 @@ export async function POST(request: Request) {
           attachments,
         });
 
-        emailSent = true;
+        if (sendResult.error) {
+          console.warn("Primary email send error, attempting fallback:", sendResult.error);
+          // If custom domain is not yet verified in Resend, send to the account owner email
+          if (destinationEmail !== "nimradhanethmini2002@gmail.com") {
+            const fallbackResult = await resend.emails.send({
+              from: "ElecQuant Quotes <onboarding@resend.dev>",
+              to: ["nimradhanethmini2002@gmail.com"],
+              replyTo: email,
+              subject: `[ElecQuant Quote] ${projectType} (${country}) - ${name}`,
+              html: htmlContent,
+              attachments,
+            });
+            emailSent = !fallbackResult.error;
+          }
+        } else {
+          emailSent = true;
+        }
       } catch (emailError) {
         console.error("Resend email delivery error:", emailError);
       }
@@ -157,3 +173,4 @@ export async function POST(request: Request) {
     );
   }
 }
+
