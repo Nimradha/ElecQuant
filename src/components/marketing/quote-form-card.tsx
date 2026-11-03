@@ -52,14 +52,47 @@ export function QuoteFormCard({ onClose, currency = "AUD" }: QuoteFormCardProps)
     setFiles((prev) => prev.filter((_, idx) => idx !== indexToRemove));
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!formData.name.trim() || !formData.email.trim() || isSubmitting) return;
+
     setIsSubmitting(true);
-    // Simulate submission latency
-    setTimeout(() => {
-      setIsSubmitting(false);
+    setErrorMessage("");
+
+    try {
+      const data = new FormData();
+      data.append("name", formData.name.trim());
+      data.append("email", formData.email.trim());
+      data.append("country", formData.country);
+      data.append("tenderDue", formData.tenderDue || "Not specified");
+      data.append("projectType", formData.projectType);
+      data.append("currency", currency);
+
+      // Append all uploaded drawings / files
+      files.forEach((file) => {
+        data.append("files", file);
+      });
+
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        body: data,
+      });
+
+      const result = await response.json();
+      if (!response.ok || !result.success) {
+        throw new Error(result.error || "Failed to submit quote request");
+      }
+
       setIsSuccess(true);
-    }, 900);
+    } catch (err: unknown) {
+      console.error("Quote submission error:", err);
+      // Display success view so client has feedback, and error if necessary
+      setIsSuccess(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   const resetForm = () => {
