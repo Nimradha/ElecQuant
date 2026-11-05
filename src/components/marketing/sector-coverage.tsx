@@ -74,20 +74,8 @@ export function SectorCoverage() {
                 className={`${bodyFont.className} text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-lg`}
                 style={{ fontFamily: bodyFont.style.fontFamily }}
               >
-                Offices, apartments, retail and mixed-use: lighting, power, data and essential services.
+                Offices, apartments, retail and mixed-use.
               </p>
-              
-              {/* Pills */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                {["Lighting", "Power", "Data", "Fire"].map((tag) => (
-                  <span
-                    key={tag}
-                    className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-slate-950/50 backdrop-blur-md border border-white/25 text-white text-xs font-medium shadow-xs"
-                  >
-                    {tag}
-                  </span>
-                ))}
-              </div>
             </div>
             </div>
           </ScrollReveal>
@@ -117,18 +105,6 @@ export function SectorCoverage() {
                 >
                   Housing estates, multi-unit developments and infrastructure works.
                 </p>
-                
-                {/* Pills */}
-                <div className="flex flex-wrap gap-2 pt-1">
-                  {["Switchboards", "Cabling", "Containment"].map((tag) => (
-                    <span
-                      key={tag}
-                      className="inline-flex items-center px-3.5 py-1.5 rounded-full bg-slate-950/50 backdrop-blur-md border border-white/25 text-white text-xs font-medium shadow-xs"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
               </div>
             </div>
           </ScrollReveal>
