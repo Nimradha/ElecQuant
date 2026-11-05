@@ -17,12 +17,12 @@ const descriptionFont = Open_Sans({
 
 export function RegionalCoverage() {
   const australianStates = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"];
-  const newZealandRegions = ["North Island", "South Island"];
+  const newZealandRegions = ["NL", "AKL", "WKO", "BOP", "GIS", "HB", "TKI", "MWT", "WGN", "TSN", "NSN", "MBH", "WTC", "CAN", "OTG", "STL", "CHT"];
 
   return (
     <section id="au-nz" className="bg-[#e6eef9] pt-14 sm:pt-20 pb-12 sm:pb-16 transition-colors scroll-mt-20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Tagline */}
         <ScrollReveal>
           <div className="text-center mb-6">
@@ -57,33 +57,33 @@ export function RegionalCoverage() {
 
         {/* 2 Regional Image Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-10 sm:mb-12">
-          
+
           {/* Australia Card (image2.jpg) */}
           <ScrollReveal delay={100} className="h-full">
             <div className="group relative h-[360px] sm:h-[420px] rounded-3xl overflow-hidden shadow-xl border border-slate-200/50 bg-slate-900 transition-transform duration-300 hover:scale-[1.008]">
-            <Image
-              src="/images/image2.jpg"
-              alt="Sydney Harbour Bridge - Australia Electrical Take-offs"
-              fill
-              priority
-              quality={90}
-              className="object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-[0.92]"
-            />
-            {/* Gradient Overlay for text contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
+              <Image
+                src="/images/image2.jpg"
+                alt="Sydney Harbour Bridge - Australia Electrical Take-offs"
+                fill
+                priority
+                quality={90}
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-[0.92]"
+              />
+              {/* Gradient Overlay for text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/40 to-transparent" />
 
-            {/* Card Content at bottom */}
-            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 text-white space-y-2">
-              <span className="inline-block px-3 py-1 rounded-full bg-[#d9232a] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
-                PRICED IN AUD
-              </span>
-              <h3 className={`${headingFont.className} text-2xl sm:text-3xl font-extrabold tracking-tight text-white`}>
-                Australia
-              </h3>
-              <p className={`${descriptionFont.className} text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-lg`}>
-                NSW · VIC · QLD · WA · SA · TAS · ACT · NT, to AS/NZS 3000 and NCC requirements.
-              </p>
-            </div>
+              {/* Card Content at bottom */}
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 text-white space-y-2">
+                <span className="inline-block px-3 py-1 rounded-full bg-[#d9232a] text-white text-[10px] sm:text-xs font-bold uppercase tracking-wider shadow-xs">
+                  PRICED IN AUD
+                </span>
+                <h3 className={`${headingFont.className} text-2xl sm:text-3xl font-extrabold tracking-tight text-white`}>
+                  Australia
+                </h3>
+                <p className={`${descriptionFont.className} text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-lg`}>
+                  NSW · VIC · QLD · WA · SA · TAS · ACT · NT, to AS/NZS 3000 and NCC requirements.
+                </p>
+              </div>
             </div>
           </ScrollReveal>
 
@@ -110,7 +110,7 @@ export function RegionalCoverage() {
                   New Zealand
                 </h3>
                 <p className={`${descriptionFont.className} text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-lg`}>
-                  North Island · South Island, to AS/NZS 3000 and NCC requirements.
+                  NL · AKL · WKO · BOP · GIS · HB · TKI · MWT · WGN · TSN · NSN · MBH · WTC · CAN · OTG · STL · CHT, to AS/NZS 3000 and NCC requirements.
                 </p>
               </div>
             </div>
@@ -120,7 +120,7 @@ export function RegionalCoverage() {
 
         {/* 4 Stat / Metric Cards - Staggered cascade one by one */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 sm:gap-6">
-          
+
           {/* Card 1: Projects completed */}
           <ScrollReveal delay={80}>
             <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-md shadow-slate-200/60 border border-slate-200/70 overflow-hidden flex flex-col items-center justify-center hover:shadow-lg transition-shadow">
