@@ -47,7 +47,7 @@ export function RegionalCoverage() {
             {newZealandRegions.map((region) => (
               <span
                 key={region}
-                className="inline-flex items-center justify-center px-4 py-1.5 rounded-full bg-white text-blue-600 text-xs font-semibold shadow-xs border border-blue-400 hover:border-blue-500 transition-colors cursor-default select-none"
+                className="inline-flex items-center justify-center px-3.5 sm:px-4 py-1.5 rounded-full bg-white text-slate-800 text-xs font-semibold shadow-xs border border-slate-200/70 hover:border-slate-300 transition-colors cursor-default select-none"
               >
                 {region}
               </span>
