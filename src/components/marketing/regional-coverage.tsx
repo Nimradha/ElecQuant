@@ -131,9 +131,6 @@ export function RegionalCoverage() {
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
                 Projects completed
               </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Update this number as you grow
-              </p>
             </div>
           </ScrollReveal>
 
@@ -147,9 +144,6 @@ export function RegionalCoverage() {
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
                 Newly launched
               </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Founder-led, hands-on service
-              </p>
             </div>
           </ScrollReveal>
 
@@ -163,25 +157,19 @@ export function RegionalCoverage() {
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
                 Both markets
               </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                AS/NZS standards-aware
-              </p>
             </div>
           </ScrollReveal>
 
-          {/* Card 4: Typical turnaround */}
+          {/* Card 4: Pending projects */}
           <ScrollReveal delay={440}>
             <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-md shadow-slate-200/60 border border-slate-200/70 overflow-hidden flex flex-col items-center justify-center hover:shadow-lg transition-shadow">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-[#2563eb]" />
               <div className="text-4xl sm:text-5xl font-extrabold text-[#2563eb] tracking-tight">
-                [XX]h
+                [0]
               </div>
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
-                Typical turnaround
+                Pending projects
               </h4>
-              <p className="text-xs text-slate-500 mt-1">
-                Rush options available
-              </p>
             </div>
           </ScrollReveal>
 
