@@ -110,7 +110,7 @@ export function RegionalCoverage() {
                   New Zealand
                 </h3>
                 <p className={`${descriptionFont.className} text-xs sm:text-sm text-slate-400 font-normal leading-relaxed max-w-lg`}>
-                  North Island and South Island, with quantities presented the way Kiwi contractors price.
+                  North Island · South Island, to AS/NZS 3000 and NCC requirements.
                 </p>
               </div>
             </div>
