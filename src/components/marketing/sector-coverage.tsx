@@ -28,7 +28,7 @@ export function SectorCoverage() {
   return (
     <section className="bg-[#d5e4f7] pt-12 sm:pt-16 pb-16 sm:pb-24 transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        
+
         {/* Section Header - Left Aligned */}
         <ScrollReveal>
           <div className="max-w-3xl mb-8 sm:mb-10 text-left">
@@ -50,33 +50,33 @@ export function SectorCoverage() {
 
         {/* 2 Sector Cards */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 mb-8 sm:mb-10">
-          
+
           {/* Left Card: Commercial & high-rise (image3.jpg) */}
           <ScrollReveal delay={120} className="h-full">
             <div className="group relative h-[380px] sm:h-[440px] rounded-3xl overflow-hidden shadow-xl border border-slate-200/50 bg-slate-900 transition-transform duration-300 hover:scale-[1.008]">
-            <Image
-              src="/images/image3.jpg"
-              alt="Commercial & high-rise electrical take-offs"
-              fill
-              priority
-              quality={90}
-              className="object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-[0.92]"
-            />
-            {/* Dark Gradient Overlay for text contrast */}
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-transparent" />
+              <Image
+                src="/images/image3.jpg"
+                alt="Commercial & high-rise electrical take-offs"
+                fill
+                priority
+                quality={90}
+                className="object-cover object-center group-hover:scale-105 transition-transform duration-700 filter brightness-[0.92]"
+              />
+              {/* Dark Gradient Overlay for text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950/95 via-slate-950/45 to-transparent" />
 
-            {/* Card Content at bottom */}
-            <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 text-white space-y-3">
-              <h3 className={`${headingFont.className} text-2xl sm:text-3xl font-extrabold tracking-tight text-white`}>
-                Commercial & high-rise
-              </h3>
-              <p
-                className={`${bodyFont.className} text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-lg`}
-                style={{ fontFamily: bodyFont.style.fontFamily }}
-              >
-                Offices, apartments, retail and mixed-use.
-              </p>
-            </div>
+              {/* Card Content at bottom */}
+              <div className="absolute inset-x-0 bottom-0 p-6 sm:p-8 text-white space-y-3">
+                <h3 className={`${headingFont.className} text-2xl sm:text-3xl font-extrabold tracking-tight text-white`}>
+                  Commercial & high-rise
+                </h3>
+                <p
+                  className={`${bodyFont.className} text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-lg`}
+                  style={{ fontFamily: bodyFont.style.fontFamily }}
+                >
+                  Offices, apartments, retail and mixed-use.
+                </p>
+              </div>
             </div>
           </ScrollReveal>
 
@@ -103,7 +103,7 @@ export function SectorCoverage() {
                   className={`${bodyFont.className} text-xs sm:text-sm text-slate-300 font-normal leading-relaxed max-w-lg`}
                   style={{ fontFamily: bodyFont.style.fontFamily }}
                 >
-                  Housing estates, multi-unit developments and infrastructure works.
+                  Housing estates and multi-unit developments.
                 </p>
               </div>
             </div>

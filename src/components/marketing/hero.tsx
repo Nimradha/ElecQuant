@@ -90,16 +90,16 @@ export function Hero({ isQuoteOpen, onOpenQuote, onCloseQuote, currency }: HeroP
             </p>
 
             {/* Feature Bullets with Red Accent Bars */}
-            <div className="pt-2 space-y-3 text-sm text-slate-200 font-medium">
-              <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1">
-                <span className="inline-block w-1 h-4 bg-[#d9232a] rounded-full shrink-0" />
-                <span>Introductory rates for first clients</span>
-                <span className="text-slate-500 font-light hidden sm:inline">|</span>
-                <span>Priced in {currency === "AUD" ? "AUD or NZD" : "NZD or AUD"}</span>
-              </div>
-              <div className="flex items-center gap-2.5">
-                <span className="inline-block w-1 h-4 bg-[#d9232a] rounded-full shrink-0" />
-                <span>Confidential files</span>
+            <div className="pt-2 text-sm text-slate-200 font-medium">
+              <div className="flex flex-wrap items-center gap-x-6 gap-y-2">
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-block w-1 h-4 bg-[#d9232a] rounded-full shrink-0" />
+                  <span>Introductory rates for first clients</span>
+                </div>
+                <div className="flex items-center gap-2.5">
+                  <span className="inline-block w-1 h-4 bg-[#d9232a] rounded-full shrink-0" />
+                  <span>Confidential files</span>
+                </div>
               </div>
             </div>
 
