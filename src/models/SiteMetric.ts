@@ -40,3 +40,4 @@ const SiteMetricSchema = new Schema<ISiteMetric>(
 export const SiteMetric: Model<ISiteMetric> =
   mongoose.models.SiteMetric ||
   mongoose.model<ISiteMetric>("SiteMetric", SiteMetricSchema);
+
