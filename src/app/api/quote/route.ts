@@ -13,6 +13,10 @@ export async function POST(request: Request) {
     const tenderDue = (formData.get("tenderDue") as string) || "Not specified";
     const projectType = (formData.get("projectType") as string) || "Residential";
     const currency = (formData.get("currency") as string) || "AUD";
+    const drawingLink = (formData.get("drawingLink") as string) || "";
+    const hasNda = formData.get("hasNda") === "true";
+    const ndaFileEntry = formData.get("ndaFile");
+    const ndaFile = ndaFileEntry instanceof File && ndaFileEntry.size > 0 ? ndaFileEntry : null;
 
     if (!name.trim() || !email.trim()) {
       return NextResponse.json(
@@ -44,6 +48,9 @@ export async function POST(request: Request) {
         projectType,
         currency,
         fileNames,
+        drawingLink,
+        hasNda,
+        ndaFileName: ndaFile ? ndaFile.name : "",
         status: "pending",
       });
       dbSaved = true;
@@ -61,7 +68,7 @@ export async function POST(request: Request) {
       try {
         const resend = new Resend(resendApiKey);
 
-        // Convert files to Resend attachments
+        // Convert drawing files to Resend attachments
         const attachments = await Promise.all(
           files.map(async (file) => {
             const arrayBuffer = await file.arrayBuffer();
@@ -71,6 +78,15 @@ export async function POST(request: Request) {
             };
           })
         );
+
+        // If client attached an NDA, add it to email attachments
+        if (ndaFile) {
+          const ndaArrayBuffer = await ndaFile.arrayBuffer();
+          attachments.push({
+            filename: `[NDA] ${ndaFile.name}`,
+            content: Buffer.from(ndaArrayBuffer),
+          });
+        }
 
         const htmlContent = `
           <div style="font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; border: 1px solid #e2e8f0; border-radius: 12px; background-color: #ffffff;">
@@ -104,13 +120,35 @@ export async function POST(request: Request) {
                 <td style="padding: 10px 0; color: #64748b; font-weight: 600;">Quote Currency:</td>
                 <td style="padding: 10px 0; color: #0f172a;">${currency}</td>
               </tr>
+              ${
+                drawingLink
+                  ? `
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 10px 0; color: #64748b; font-weight: 600;">Drawing Link:</td>
+                <td style="padding: 10px 0;"><a href="${drawingLink}" target="_blank" style="color: #1a63cc; word-break: break-all;">${drawingLink}</a></td>
+              </tr>
+              `
+                  : ""
+              }
+              ${
+                hasNda
+                  ? `
+              <tr style="border-bottom: 1px solid #f1f5f9;">
+                <td style="padding: 10px 0; color: #64748b; font-weight: 600;">NDA Requested:</td>
+                <td style="padding: 10px 0; color: #d9232a; font-weight: 600;">
+                  Yes ${ndaFile ? `(Document attached: ${ndaFile.name})` : "(No document attached)"}
+                </td>
+              </tr>
+              `
+                  : ""
+              }
               <tr>
                 <td style="padding: 10px 0; color: #64748b; font-weight: 600;">Attached Files:</td>
                 <td style="padding: 10px 0; color: #0f172a;">
                   ${
                     fileNames.length > 0
                       ? fileNames.map((fn) => `<div>📁 ${fn}</div>`).join("")
-                      : "<em>No files attached</em>"
+                      : "<em>No drawing files attached</em>"
                   }
                 </td>
               </tr>

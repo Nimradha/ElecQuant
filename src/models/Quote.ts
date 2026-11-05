@@ -8,6 +8,9 @@ export interface IQuote extends Document {
   projectType: string;
   currency: string;
   fileNames: string[];
+  drawingLink?: string;
+  hasNda?: boolean;
+  ndaFileName?: string;
   status: "pending" | "reviewed" | "quoted";
   createdAt: Date;
   updatedAt: Date;
@@ -46,6 +49,18 @@ const QuoteSchema = new Schema<IQuote>(
       type: [String],
       default: [],
     },
+    drawingLink: {
+      type: String,
+      default: "",
+    },
+    hasNda: {
+      type: Boolean,
+      default: false,
+    },
+    ndaFileName: {
+      type: String,
+      default: "",
+    },
     status: {
       type: String,
       enum: ["pending", "reviewed", "quoted"],
@@ -59,3 +74,4 @@ const QuoteSchema = new Schema<IQuote>(
 
 export const Quote: Model<IQuote> =
   mongoose.models.Quote || mongoose.model<IQuote>("Quote", QuoteSchema);
+

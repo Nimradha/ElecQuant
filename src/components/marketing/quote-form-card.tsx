@@ -15,12 +15,16 @@ export function QuoteFormCard({ onClose, currency = "AUD" }: QuoteFormCardProps)
     country: "Australia",
     tenderDue: "",
     projectType: "Residential",
+    drawingLink: "",
   });
   const [files, setFiles] = useState<File[]>([]);
+  const [hasNda, setHasNda] = useState(false);
+  const [ndaFile, setNdaFile] = useState<File | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const ndaInputRef = useRef<HTMLInputElement>(null);
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
@@ -69,11 +73,18 @@ export function QuoteFormCard({ onClose, currency = "AUD" }: QuoteFormCardProps)
       data.append("tenderDue", formData.tenderDue || "Not specified");
       data.append("projectType", formData.projectType);
       data.append("currency", currency);
+      data.append("drawingLink", formData.drawingLink.trim());
+      data.append("hasNda", hasNda ? "true" : "false");
 
       // Append all uploaded drawings / files
       files.forEach((file) => {
         data.append("files", file);
       });
+
+      // Append NDA file if attached
+      if (hasNda && ndaFile) {
+        data.append("ndaFile", ndaFile);
+      }
 
       const response = await fetch("/api/quote", {
         method: "POST",
@@ -102,8 +113,11 @@ export function QuoteFormCard({ onClose, currency = "AUD" }: QuoteFormCardProps)
       country: "Australia",
       tenderDue: "",
       projectType: "Residential",
+      drawingLink: "",
     });
     setFiles([]);
+    setHasNda(false);
+    setNdaFile(null);
     setIsSuccess(false);
   };
 
@@ -128,7 +142,7 @@ export function QuoteFormCard({ onClose, currency = "AUD" }: QuoteFormCardProps)
               Get your take-off quote
             </h2>
             <p className="text-xs sm:text-sm text-slate-500 mt-1">
-              Upload your drawings and we&apos;ll reply with a fixed price in {currency}.
+              Upload your drawings and we&apos;ll reply with a fixed price.
             </p>
           </div>
 
@@ -302,13 +316,90 @@ export function QuoteFormCard({ onClose, currency = "AUD" }: QuoteFormCardProps)
               )}
             </div>
 
+            {/* Or a link to your drawings */}
+            <div>
+              <label
+                htmlFor="quote-drawing-link"
+                className="block text-xs font-semibold text-slate-700 mb-1"
+              >
+                Or a link to your drawings <span className="text-slate-400 font-normal">(Dropbox, Google Drive, OneDrive)</span>
+              </label>
+              <input
+                id="quote-drawing-link"
+                type="url"
+                value={formData.drawingLink}
+                onChange={(e) => setFormData({ ...formData, drawingLink: e.target.value })}
+                placeholder="https://"
+                className="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-base sm:text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none focus:ring-2 focus:ring-[#d9232a] focus:border-transparent transition-all"
+              />
+            </div>
+
+            {/* NDA (optional, attach yours to sign) */}
+            <div className="pt-0.5 space-y-2">
+              <label className="flex items-center gap-2.5 cursor-pointer select-none">
+                <input
+                  type="checkbox"
+                  checked={hasNda}
+                  onChange={(e) => {
+                    const checked = e.target.checked;
+                    setHasNda(checked);
+                    if (!checked) setNdaFile(null);
+                  }}
+                  className="w-4 h-4 rounded border-slate-300 text-[#d9232a] focus:ring-[#d9232a] cursor-pointer"
+                />
+                <span className="text-xs font-semibold text-slate-700">
+                  NDA <span className="text-slate-400 font-normal">(optional, attach yours to sign)</span>
+                </span>
+              </label>
+
+              {/* Only visible if checkbox is checked */}
+              {hasNda && (
+                <div className="pl-6.5 pt-0.5 animate-in fade-in slide-in-from-top-1 duration-150">
+                  <div className="flex items-center gap-2">
+                    <input
+                      type="file"
+                      ref={ndaInputRef}
+                      accept=".pdf,.doc,.docx"
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          setNdaFile(e.target.files[0]);
+                        }
+                      }}
+                      className="hidden"
+                      id="nda-file-input"
+                    />
+                    <button
+                      type="button"
+                      onClick={() => ndaInputRef.current?.click()}
+                      className="px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 rounded text-xs font-medium text-slate-700 transition-colors cursor-pointer"
+                    >
+                      Choose File
+                    </button>
+                    <span className="text-xs text-slate-500 truncate max-w-[220px]">
+                      {ndaFile ? ndaFile.name : "No file chosen"}
+                    </span>
+                    {ndaFile && (
+                      <button
+                        type="button"
+                        onClick={() => setNdaFile(null)}
+                        className="text-slate-400 hover:text-red-600 p-0.5"
+                        title="Remove NDA file"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    )}
+                  </div>
+                </div>
+              )}
+            </div>
+
             {/* Primary Submit Button */}
             <button
               type="submit"
               disabled={isSubmitting}
               className="w-full mt-1.5 py-3 px-5 sm:py-3.5 sm:px-6 rounded-lg bg-[#d9232a] hover:bg-[#b81c22] active:scale-[0.99] text-white font-semibold text-sm sm:text-base tracking-tight transition-all shadow-md shadow-red-600/20 disabled:opacity-70 cursor-pointer"
             >
-              {isSubmitting ? "Submitting drawings..." : `Get my quote (${currency})`}
+              {isSubmitting ? "Submitting drawings..." : "Get my quote"}
             </button>
           </form>
         </>
@@ -339,6 +430,18 @@ export function QuoteFormCard({ onClose, currency = "AUD" }: QuoteFormCardProps)
               <span className="text-slate-500">Files Uploaded:</span>
               <span className="font-semibold text-slate-800">{files.length > 0 ? `${files.length} package(s)` : "Pending upload"}</span>
             </div>
+            {formData.drawingLink && (
+              <div className="flex justify-between gap-2">
+                <span className="text-slate-500 shrink-0">Drawing Link:</span>
+                <span className="font-semibold text-slate-800 truncate max-w-[200px]">{formData.drawingLink}</span>
+              </div>
+            )}
+            {hasNda && (
+              <div className="flex justify-between gap-2">
+                <span className="text-slate-500 shrink-0">NDA:</span>
+                <span className="font-semibold text-slate-800 truncate max-w-[200px]">{ndaFile ? ndaFile.name : "Requested"}</span>
+              </div>
+            )}
             <div className="flex justify-between">
               <span className="text-slate-500">Quote Currency:</span>
               <span className="font-semibold text-slate-800">{currency} (Fixed-Price)</span>
