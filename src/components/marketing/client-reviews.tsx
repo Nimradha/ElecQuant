@@ -414,15 +414,7 @@ export function ClientReviews() {
                   )}
                 </button>
 
-                {/* Google Review Link */}
-                <div className="pt-1">
-                  <a
-                    href="#google-review"
-                    className="text-xs sm:text-sm text-[#1a63cc] hover:underline font-medium inline-block"
-                  >
-                    Or review us on Google [link]
-                  </a>
-                </div>
+
               </form>
             </div>
         </ScrollReveal>
