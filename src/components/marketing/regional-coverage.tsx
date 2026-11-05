@@ -1,4 +1,6 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Image from "next/image";
 import { Plus_Jakarta_Sans, Open_Sans } from "next/font/google";
 import { ScrollReveal } from "@/components/ui/scroll-reveal";
@@ -15,7 +17,38 @@ const descriptionFont = Open_Sans({
   display: "swap",
 });
 
+interface SiteMetrics {
+  projectsCompleted: string;
+  newlyLaunched: string;
+  bothMarkets: string;
+  pendingProjects: string;
+}
+
+const DEFAULT_METRICS: SiteMetrics = {
+  projectsCompleted: "[0]",
+  newlyLaunched: "2026",
+  bothMarkets: "AU+NZ",
+  pendingProjects: "[0]",
+};
+
 export function RegionalCoverage() {
+  const [metrics, setMetrics] = useState<SiteMetrics>(DEFAULT_METRICS);
+
+  useEffect(() => {
+    async function loadMetrics() {
+      try {
+        const res = await fetch("/api/metrics");
+        const data = await res.json();
+        if (data.metrics) {
+          setMetrics(data.metrics);
+        }
+      } catch (err) {
+        console.error("Failed to load metrics", err);
+      }
+    }
+    loadMetrics();
+  }, []);
+
   const australianStates = ["NSW", "VIC", "QLD", "WA", "SA", "TAS", "ACT", "NT"];
   const newZealandRegions = ["NL", "AKL", "WKO", "BOP", "GIS", "HB", "TKI", "MWT", "WGN", "TSN", "NSN", "MBH", "WTC", "CAN", "OTG", "STL", "CHT"];
 
@@ -126,7 +159,7 @@ export function RegionalCoverage() {
             <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-md shadow-slate-200/60 border border-slate-200/70 overflow-hidden flex flex-col items-center justify-center hover:shadow-lg transition-shadow">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-[#d9232a]" />
               <div className="text-4xl sm:text-5xl font-extrabold text-[#d9232a] tracking-tight">
-                [0]
+                {metrics.projectsCompleted}
               </div>
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
                 Projects completed
@@ -139,7 +172,7 @@ export function RegionalCoverage() {
             <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-md shadow-slate-200/60 border border-slate-200/70 overflow-hidden flex flex-col items-center justify-center hover:shadow-lg transition-shadow">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-[#2563eb]" />
               <div className="text-4xl sm:text-5xl font-extrabold text-[#2563eb] tracking-tight">
-                2026
+                {metrics.newlyLaunched}
               </div>
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
                 Newly launched
@@ -152,7 +185,7 @@ export function RegionalCoverage() {
             <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-md shadow-slate-200/60 border border-slate-200/70 overflow-hidden flex flex-col items-center justify-center hover:shadow-lg transition-shadow">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-[#d9232a]" />
               <div className="text-4xl sm:text-5xl font-extrabold text-[#d9232a] tracking-tight">
-                AU+NZ
+                {metrics.bothMarkets}
               </div>
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
                 Both markets
@@ -165,7 +198,7 @@ export function RegionalCoverage() {
             <div className="relative bg-white rounded-2xl sm:rounded-3xl p-6 sm:p-8 text-center shadow-md shadow-slate-200/60 border border-slate-200/70 overflow-hidden flex flex-col items-center justify-center hover:shadow-lg transition-shadow">
               <div className="absolute top-0 inset-x-0 h-1.5 bg-[#2563eb]" />
               <div className="text-4xl sm:text-5xl font-extrabold text-[#2563eb] tracking-tight">
-                [0]
+                {metrics.pendingProjects}
               </div>
               <h4 className="text-sm sm:text-base font-bold text-slate-900 mt-3.5">
                 Pending projects
