@@ -18,6 +18,10 @@ export const metadata: Metadata = {
   description:
     "Accurate, tender-ready electrical take-offs for contractors and estimators from Perth to Auckland, built around AS/NZS 3000 standards. Fixed-price quotes in AUD & NZD.",
   keywords: [
+    "ElecQuant",
+    "elecquant",
+    "elec-quant",
+    "elec quant",
     "electrical take-offs",
     "electrical material take-off",
     "electrical estimating Australia",
@@ -75,6 +79,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "ProfessionalService",
     name: "ElecQuant",
+    alternateName: ["elecquant", "elec-quant", "Elec Quant", "ElecQuant Australia", "ElecQuant New Zealand"],
     url: "https://www.elec-quant.com",
     logo: "https://www.elec-quant.com/images/image2.jpg",
     image: "https://www.elec-quant.com/images/image2.jpg",

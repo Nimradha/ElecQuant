@@ -10,7 +10,7 @@ export function Logo({ className = "", variant = "dark" }: LogoProps) {
   const isLight = variant === "light";
 
   return (
-    <Link href="/" className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
+    <Link href="/" aria-label="ElecQuant Home" className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
       {/* Icon Emblem */}
       <div className="relative w-10 h-10 rounded-full border border-slate-200 bg-white shadow-xs flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-200">
         <svg viewBox="0 0 100 100" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
