@@ -1,5 +1,6 @@
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 
 interface LogoProps {
   className?: string;
@@ -12,22 +13,15 @@ export function Logo({ className = "", variant = "dark" }: LogoProps) {
   return (
     <Link href="/" aria-label="ElecQuant Home" className={`inline-flex items-center gap-2.5 group select-none ${className}`}>
       {/* Icon Emblem */}
-      <div className="relative w-10 h-10 rounded-full border border-slate-200 bg-white shadow-xs flex items-center justify-center p-1 group-hover:scale-105 transition-transform duration-200">
-        <svg viewBox="0 0 100 100" className="w-8 h-8" fill="none" xmlns="http://www.w3.org/2000/svg">
-          {/* Circular outer track in deep navy */}
-          <circle cx="50" cy="50" r="40" stroke="#0F355C" strokeWidth="8" strokeDasharray="180 50" strokeLinecap="round" />
-          
-          {/* Inner electric bolt / arrow in vibrant red */}
-          <path
-            d="M52 24L34 50H48L44 76L66 46H52L56 24H52Z"
-            fill="#DC2626"
-            stroke="#B91C1C"
-            strokeWidth="1.5"
-            strokeLinejoin="round"
-          />
-          {/* Accent dot */}
-          <circle cx="68" cy="68" r="4.5" fill="#0F355C" />
-        </svg>
+      <div className="relative w-9 h-9 sm:w-10 sm:h-10 rounded-full overflow-hidden border border-slate-200 bg-white shadow-xs flex items-center justify-center group-hover:scale-105 transition-transform duration-200 shrink-0">
+        <Image
+          src="/logos/ElecQuant logo.png"
+          alt="ElecQuant Logo"
+          width={40}
+          height={40}
+          className="object-contain w-full h-full rounded-full"
+          priority
+        />
       </div>
 
       {/* Wordmark */}
